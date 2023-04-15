@@ -7,11 +7,22 @@ form.addEventListener("submit", function (event){
     form.title.value = ""
 
    const li = document.createElement('li')
-   ul.append(li)
+   ul.appendChild(li)
 
    const div = document.createElement('div')
    div.textContent = item
-   li.append(div)
+   li.appendChild(div)
 
+   const editBtn = document.createElement('button');
+   editBtn.innerHTML = "edit";
+   li.appendChild(editBtn)
+   
+   const delBtn = document.createElement('button');
+   delBtn.textContent = 'X' 
+   li.appendChild(delBtn)
+   delBtn.addEventListener('click', function ( ){
+    li.remove ()
+   })
 })
+
 
