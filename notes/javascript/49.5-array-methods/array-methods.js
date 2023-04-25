@@ -37,6 +37,7 @@ var arrOfFood = ["pancake", "egg", "ice cream", "pizza", "hamburger"]
     var splitName1= name1.split("") //turns string into an array 
     var reversedArr = splitName.reverse ()
     console.log(reversedArr) // ["k", "c", "i", "r"]
+    
     var reversedName = reversedArr.join("")//to put it back into a string
     console.log(reversedName) //"kcir"
 
