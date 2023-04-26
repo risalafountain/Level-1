@@ -1,0 +1,12 @@
+{
+  "name": "53.5-mutabilty-value-types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mutability-value-types.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
