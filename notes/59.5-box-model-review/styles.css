@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#box1 {
+    border: 2px solid green;
+    padding: 10px 5px 10px 5px;
+    margin: 5px;
+}
+
+#box2 {
+    border: 2px solid blue;
+    padding: 10px 5px 10px 5px;
+    margin: 5px; 
+}
+
+

@@ -45,6 +45,31 @@ while (isAlive === true) {
         //continued search of the desk reveals a small lever hidden underneath the desk! To pull = press 1, hand = press 2 door = press 3
             
 
+// while (isAlive === true && hasKey === false) {
+
+// const choice = readline.keyIn (`Press (h) to put your hand in the hole.\nPress (s) to search the desk.\nPress (b) to try to break the door down. `, {limit: "shb"})};
+
+// if (choice === h) {
+//     console.log("DEAD GAME OVER")
+//     isAlive === false
+// } 
+// else if (choice === s) {
+//     if(hasKey === true) {
+//         console.log("Nothing else in the desk")
+//     } else if ( hasKey ===false) {
+//         console.log("good job")
+//         hasKey === true
+//     }
+// } 
+// else if (choice === b) { 
+//     if (hasKey === false) { 
+//         console.log("you're an idiot")}
+//     else if (hasKey === true) { 
+//         console.log("good job")
+//     }
+//     }
+
+    //if 1= 
 
 
 
