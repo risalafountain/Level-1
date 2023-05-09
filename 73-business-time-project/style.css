@@ -1,0 +1,65 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: serif;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    border: double black;
+}
+
+#grid-container > nav {
+    border: 2px dotted red;
+    border-radius: 3px;
+    text-align: center;
+    background-color: antiquewhite;  
+    position: fixed;
+    grid-column: 1/4;
+}
+
+body {
+    background-color: rgb(195, 174, 228);
+    background-image: url('https://images.unsplash.com/photo-1496868834840-5f4c98840aaa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8c29saWQlMjBjb2xvciUyMGJhY2tyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&q=60');
+}
+
+h1 {
+    font-size: 22px;
+    background-color: #e7e8d1;
+    border-radius: 15px;
+    text-align: center;
+    grid-column: 1/4;
+}
+
+/* 
+how do we get the font the same for the h1 and footer? it seems the h1 is bold */
+
+footer {
+    font-size: 20px;
+    background-color: #e7e8d1;
+    border-radius: 15px;
+    text-align: center;
+    grid-column: 1 / 4;
+}
+
+.content {
+    background-color: #b85042;
+    grid-column: 2/4;
+    grid-row: 2/3;
+}
+
+.pic1 {
+    width: 175px;
+    height: 250px;
+    border-radius: 20px; 
+    grid-column: 1/2;
+    grid-row: 2/3;
+    padding: 25px;
+}
+
+p {
+   background-color: #a7beae; 
+   grid-column: 1 /4;  
+}
