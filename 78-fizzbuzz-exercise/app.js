@@ -30,9 +30,3 @@ for (let i = 1; i <= 20; i++) {
 
 console.log(count)
 
-// optional---TBD/worked at a later date 
-
-/*OPT: write a function that keeps a tally of how often the phrases are used; return object
-
-remember: multiples are a number that can be divided by another number without a remainder.
-*/
