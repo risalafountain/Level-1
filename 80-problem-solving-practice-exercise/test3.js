@@ -8,19 +8,19 @@
 function isDivisible(num1, num2){
     //console.log(num1 / num2)
     if (num1 % num2 === 0){
-        console.log("true")
+        return("true")
     } else {
-        console.log("false")
+        return("false")
     }
 }
     
 
 
-// // test data
-// console.log(isDivisible(4, 2)) // => true
-// console.log(isDivisible(9, 3)) // => true
-// console.log(isDivisible(15, 4)) // => false
-// console.log(isDivisible(24, 8))
-// console.log(isDivisible(65, 89))
+// test data
+console.log(isDivisible(4, 2)) // => true
+console.log(isDivisible(9, 3)) // => true
+console.log(isDivisible(15, 4)) // => false
+console.log(isDivisible(24, 8))
+console.log(isDivisible(65, 89))
 
 console.log(isDivisible(7, 10))
