@@ -1,42 +1,46 @@
 //RPG Project
 const readline = require ("readline-sync")
-
+let inCombat = true 
+let enemyAlive = true
+let inventory = []
 //Create an object for the player's information or do I need a CONSTRUCTOR FUNCTION to be able to print stats later?? 
 const player = {
-    name: "", //should I leave an empty string or just put userName? 
+    name: "", 
     health: 100, 
-    maxHealth: 100, //do i need a max and min for the math objects?  
-    minHealth: 0,
+    maxHealth: 100,  
+    itemsOwned: [] //can i do this as an empty array? how do I put the items gained in here?
 }
 
-//function to print stats after a battle..this is problematic! how do I show just what items are owned not everything that's an option? 
+//print stats
 function displayStats () {
-    console.log(`\nName: ${userName}\nHealth: ${player.health} \nInventory: ${inventory}`)
+    console.log(`\nName: ${userName}\nHealth: ${player.health} \nInventory: ${player.itemsOwned}`)
 }
+
 
 //Create constructor function for the monsters w/ their information
 const enemies = []
 
-function Enemy (name, maxHealth, description) {
+function Enemy (name, maxHealth, description, health) {
     this.name = name
     this.maxHealth = maxHealth
     this.description = description
+    this.health = health
 }
-const beserker = new Enemy("Beserker", 50, "Where there's one there's sure to be more! This agent of Chaos is looking for some fun.")
+const beserker = new Enemy("Beserker", 50, "Where there's one there's sure to be more! This agent of Chaos is looking for some fun.", 50)
 //console.log(beserker)
-const orc = new Enemy ("Orc", 60, "Will meat be back on the menu tonight?") 
+const orc = new Enemy ("Orc", 60, "Will meat be back on the menu tonight?", 60) 
 //console.log(orc)
-const dragon = new Enemy("Baby Dragon", 45, "Alas! A worthy, albeit tiny, opponent!")
-const cucumber = new Enemy("Cucumber", 35, "Your companion seems really uncomfortable right now....not sure what's going on!")
-const velociraptor = new Enemy ("Velociraptor", 70, "You've seen too many Jurassic Park movies to not take this one seriously!")
-const vacuum = new Enemy ("Vacuum", 100, "The Greatest of all the monsters! For you it means chores---for your companion it means war!")
+const dragon = new Enemy("Baby Dragon", 45, "Alas! A worthy, albeit tiny, opponent!", 45)
+const cucumber = new Enemy("Cucumber", 35, "Your companion seems really uncomfortable right now....not sure what's going on!", 35)
+const velociraptor = new Enemy ("Velociraptor", 70, "You've seen too many Jurassic Park movies to not take this one seriously!", 70)
+const vacuum = new Enemy ("Vacuum", 100, "The Greatest of all the monsters! For you it means chores---for your companion it means war!", 100)
 
 enemies.push(beserker,dragon,cucumber,velociraptor,vacuum)
 //console.log(enemies)
 
+//generate random enemy
+let randomEnemy
 //inventory items: create an array of objects     
-const inventory = []
-
 function Item (name, description) {
     this.name = name
     this.description = description
@@ -56,8 +60,6 @@ const userName = readline.question ("Hello, brave adventurer! My name is Puma Fu
 console.log (`\nHello, ${userName}!`) 
 
 //Choose companion
-const start = readline.keyIn (`\nType (c) to choose your faithful companion   `, {limit: "c"})
-
 const companionChoice = readline.keyIn (`\nWe have three furry friends to choose as your companion! 
 \nXena:\nA sleepy druid whose love of catnip drives her. A lover of the simple things in life like cuddles or a sunny day--one who will always stop to smell the po-tay-toes. 
 \nZelda:\nA beautiful but fierce ranger whose expertise in the wild was instilled at a very young age. Always watching, always alert, always on her toes--her only weakness is her quesy stomach.  
@@ -74,18 +76,25 @@ if (companionChoice === "x") {
    
 //example of while loop
 //condition should be true in order for while loop to run
-
 let isPlaying = true
+let hasWalked = false
+
+//Use w to walk
 while(isPlaying === true) {
-    const walkCmnd = readline.keyIn (`Press (w) to begin exploring the Land of Fancy Feast! Good Luck on your adventure and may the odds be ever in your furver! `, {limit: "w"})
-
-    if(walkCmnd === "w"){
-        console.log("You decided to explore!")
-        walk()
-        break
+    if (hasWalked) {
+        const walkCmnd = readline.keyIn (`Press (w) to continue exploring `, {limit: "w"})        
+        if(walkCmnd === "w"){
+            walk()
     }
+    } else {
+        const beginGame = readline.keyIn (`Press (b) to begin exploring the Land of Fancy Feast! Good Luck on your adventure and may the odds be ever in your furver! `, {limit: "b"})
+        if(beginGame === "b"){
+            hasWalked =  true
+            walk()}
 
+    }
 }
+
 
 function walk() {
     //random algorithm to determine if enemy appeared
@@ -95,39 +104,101 @@ function walk() {
         console.log("An enemy has appeared!")
         enemyAppeared()
         //enemy appeared function will be called here
-
+        
     }else if(randomAppearance > 25) {
         console.log("No enemy has appeared!")
-    }
+       }
 }
+
 
 function enemyAppeared() {
-    //generate random enemy
-    const randomEnemy = enemies [Math.floor(Math.random() * enemies.length)]
-    console.log(`You've encountered a ${randomEnemy.name}!  ${randomEnemy.description}`)
-    
     //choose what to do (fight or run)
+    randomEnemy = enemies [Math.floor(Math.random() * enemies.length)]
+
+    console.log(`You've encountered a ${randomEnemy.name}!  ${randomEnemy.description}`)
     const fightOrFlight = readline.keyIn (`What would you like to do? \n(F)ight \n(R)un \n(I)nventory Check    `, {limit: "fri"})
     if (fightOrFlight === "f") {
-        console.log("You have chosen to fight!") //need to add the attcking stuff somewhere here 
+        console.log("You have chosen to fight!")
+        inCombat = true
+        battle() 
     } else if (fightOrFlight === "r") {
-        console.log("You have chosen to run!") //only has a 50% chance of escaping )
+        console.log("You have chosen to run!")
+        run() //create function to show 50% chance of escaping 
+    } else if (fightOrFlight === "i") {
+        console.log("You have chosen to look at your inventory") //need to generate 
     }
 }
 
-//Use w to walk
-const walkCmnd = readline.keyIn (`Press (w) to continue exploring `, {limit: "w"})
+
+function battle () {
+    while (inCombat) {
+        console.log(`${userName} ${player.health} ${player.maxHealth}\n${randomEnemy.name} ${randomEnemy.health} ${randomEnemy.maxHealth}`)
+        readline.keyIn (`You are being attacked by ${randomEnemy.name}! Looks like you're clawing your way out of this one! \n (a)ttack  ` , {limit: "a"})
+        playerAttack()
+    }
+}
+
+function playerAttack() {
+    const playerDamage = Math.floor(Math.random() * 50)
+    randomEnemy.health = randomEnemy.health - playerDamage
+    enemyHealth() //are you dead yet   
     
+}
+
+function enemyAttack (){
+    const enemyDamage = Math.floor(Math.random () * 25)
+    player.health = player.health - enemyDamage
+    if (player.health <= 0) {
+        console.log("game over")
+        isPlaying = false
+        inCombat = false
+     } else {
+        console.log("you survived")
+     }
+}
 
 
-//generate random inventory item 
+function enemyHealth() {
+    if (randomEnemy.health <= 0) {
+        console.log("Killed it")
+        enemyAlive = false
+        inCombat = false
+        for (let i = 0; i < enemies.length; i++) {
+            const element = enemies[i];
+            if (element.health <= 0) {
+              enemies.splice (i,i) //STOPPED HERE W/ ADAM   how do i remove the enemy once they have been unalived   
+            }
+        } 
+    } else {
+        console.log("Enemy has decided to attack")
+        enemyAttack()
+    }
+}
+
+    
+function run () {
+    const escapeChance = Math.floor(Math.random() * 100)
+
+    if (escapeChance <= 50) {
+        console.log("Oh wow! You run really fast!")
+    } else {
+        console.log("Oh No! The enemy has caught up to you!")
+    }
+}
+
+//HOW DO I SAVE MY INVENTORY??????
+//function inventoryOption () {
+  //  const  checkInventory =  
+//}
+
+//generate random inventory item
+
 //if they win get an inventoryItem 
 const randomInventory = inventory [Math.floor(Math.random () * inventory.length)];
 console.log(`YAY! You have gained ${randomInventory.name}! ${randomInventory.description}`)
 
   
 //GAME OVER MSSGE IDEA 
-//if player dies print a cool death message and end the game 
 // ________ <= This is your Heart Beat; 
 //live long and pawspurr; 
 //you have got to be kitten me right meow
